@@ -1,43 +1,22 @@
-import java.sql.*;
 import java.util.List;
 
 public class Application {
-    public static void main(String[] args) throws SQLException {
-        final String user = "postgres";
-        final String password = "73aberiv";
-        final String url = "jdbc:postgresql://localhost:5432/postgres";
-// задание 1
-        try (final Connection connection = DriverManager.getConnection(url, user, password);
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM employees1 WHERE id=2")) {
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int idEmployee = resultSet.getInt("id");
-                System.out.println("id сотрудника: " + idEmployee);
-                String firstNameEmployee = resultSet.getString("first_name");
-                System.out.println("Имя сотрудника: " + firstNameEmployee);
-                String lastNameEmployee = resultSet.getString("last_name");
-                System.out.println("Фамилия сотрудника: " + lastNameEmployee);
-                String gender = resultSet.getString("gender");
-                System.out.println("Пол: " + gender);
-                int nameOfCity = resultSet.getInt("city_id");
-                System.out.println("Город проживания сотрудника: " + nameOfCity);
-            }
+    public static void main(String[] args) {
 
-            System.out.println("Соединение установлено");
-        } catch (SQLException e) {
-            System.out.println("Ошибка при подключении к базе данных");
-            e.printStackTrace();
-        }
-//задание №2
         EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-        employeeDAO.deleteEmployee(10);
-        Employee employee = new Employee(11, "Zhanna", "Koroleva", "female", 45, 3);
-        employeeDAO.createEmployee(employee);
-        employeeDAO.updateEmployee(2);
-        employeeDAO.getEmployeeById(1);
-        List<Employee> employeeList = employeeDAO.getAllEmployee();
+        Employee employee1 = new Employee();
+        employee1.setFirstName("Petr");
+        employee1.setLastName("Petrov");
+        employee1.setGender("male");
+        employee1.setAge(51);
+        employee1.setCityId(1);
+        employeeDAO.createEmployee(employee1);
+        employeeDAO.deleteEmployee(employeeDAO.getEmployeeById(13));
+        employeeDAO.updateEmployee(employeeDAO.getEmployeeById(2));
+        List <Employee> employeeList = employeeDAO.getAllEmployee();
         for (Employee employees : employeeList) {
             System.out.println(employees);
         }
+        CreatingEntityManager.close();
     }
 }

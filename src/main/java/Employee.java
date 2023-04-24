@@ -1,10 +1,26 @@
+import javax.persistence.*;
+
+@Entity
+@Table(name="employees1")
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "age")
     private int age;
+
+    @Column(name = "city_id")
     private int cityId;
+
+    public Employee(){
+
+    }
 
     public Employee(int id, String firstName, String lastName, String gender, int age, int cityId) {
         this.id = id;
@@ -54,6 +70,7 @@ public class Employee {
     public void setAge(int age) {
         this.age = age;
     }
+
 
     public int getCityId() {
         return cityId;
