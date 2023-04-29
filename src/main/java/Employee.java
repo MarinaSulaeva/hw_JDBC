@@ -1,3 +1,5 @@
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,7 +18,7 @@ public class Employee {
     @Column(name = "age")
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id")
     private City city;
 
