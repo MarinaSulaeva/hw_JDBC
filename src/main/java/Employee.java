@@ -1,3 +1,5 @@
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 
 @Entity
@@ -5,7 +7,8 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
@@ -15,27 +18,19 @@ public class Employee {
     @Column(name = "age")
     private int age;
 
-    @Column(name = "city_id")
-    private int cityId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id")
+    private City city;
 
     public Employee(){
 
     }
 
-    public Employee(int id, String firstName, String lastName, String gender, int age, int cityId) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.age = age;
-        this.cityId = cityId;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,12 +67,12 @@ public class Employee {
     }
 
 
-    public int getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     @Override
@@ -87,6 +82,6 @@ public class Employee {
                 ", Фамилия сотрудника: " + lastName +
                 ", пол: " + gender +
                 ", возраст: " + age +
-                ", номер города: " + cityId;
+                ", город: " + city.getNameCity();
     }
 }
