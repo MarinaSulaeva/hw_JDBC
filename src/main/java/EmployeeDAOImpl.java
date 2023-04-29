@@ -1,9 +1,7 @@
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.List;
+
 
 public class EmployeeDAOImpl implements EmployeeDAO {
     final EntityManager entityManager = CreatingEntityManager.create();

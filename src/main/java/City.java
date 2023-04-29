@@ -1,18 +1,26 @@
+import javax.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = "city")
 public class City {
-    private int cityId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "city_id")
+    private Integer cityId;
+    @Column(name = "city_name")
     private String nameCity;
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Employee> employee;
 
-    public City(int cityId, String nameCity) {
-        this.cityId = cityId;
-        this.nameCity = nameCity;
+    public City() {
     }
 
-    public int getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 
@@ -22,5 +30,18 @@ public class City {
 
     public void setNameCity(String nameCity) {
         this.nameCity = nameCity;
+    }
+
+    public List<Employee> getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(List<Employee> employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "город №" + cityId + " " + nameCity + ", количество сотрудников, проживающих в городе: " + employee.size();
     }
 }
